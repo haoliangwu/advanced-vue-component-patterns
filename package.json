@@ -1,7 +1,7 @@
 {
-  "name": "advanced-vue-component-patterns",
+  "name": "part2",
   "version": "1.0.0",
-  "description": "",
+  "description": "build a toggle component",
   "main": "src/main.js",
   "private": true,
   "scripts": {
@@ -75,8 +75,5 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "keywords": [
-    "vue",
-    "component-pattern"
-  ]
+  "keywords": []
 }

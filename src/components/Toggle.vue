@@ -1,32 +1,40 @@
 <template>
-  <switch-comp :on="checked" @click.native="onClick"></switch-comp>
+  <div class="toggle">
+	  <slot></slot>
+  </div>
 </template>
 <script>
-import Switch from "./Switch";
-
 export default {
   props: {
     on: {
       type: Boolean,
       default: false
-    }
+    },
+    className: String
   },
-  data(){
+  data() {
     return {
-      checked: false
-    }
+      status: {
+        on: false
+      }
+    };
   },
-  components: {
-    SwitchComp: Switch
+  provide() {
+    return {
+      toggleComp: {
+        status: this.status,
+        toggle: this.toggle
+      }
+    };
   },
   methods: {
-    onClick() {
-      this.checked = !this.checked
-      this.$emit("toggled", this.checked);
+    toggle() {
+      this.status.on = !this.status.on;
+      this.$emit("toggle", this.status.on);
     }
   },
-  mounted(){
-    this.checked = this.on
+  mounted() {
+    this.status.on = this.on;
   }
 };
 </script>

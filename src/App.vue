@@ -1,20 +1,30 @@
 <template>
   <div id="app">
-    <toggle :on="true" @toggled="showMessage"></toggle>
+    <toggle @toggle="onToggle">
+      <toggle-button></toggle-button>
+      <toggle-on>On</toggle-on>
+      <toggle-off>Off</toggle-off>
+    </toggle>
   </div>
 </template>
 
 <script>
 import Toggle from "./components/Toggle";
+import ToggleButton from "./components/ToggleButton";
+import ToggleOn from "./components/ToggleOn";
+import ToggleOff from "./components/ToggleOff";
 
 export default {
   name: "App",
   components: {
-    Toggle
+    Toggle,
+    ToggleButton,
+    ToggleOn,
+    ToggleOff
   },
   methods: {
-    showMessage(value) {
-      console.log(value);
+    onToggle(on) {
+      console.log("toggle", on);
     }
   }
 };
@@ -28,7 +38,7 @@ export default {
   box-sizing: inherit;
 }
 body {
-  font-family: 'Antic Slab', serif;
+  font-family: "Antic Slab", serif;
 }
 hr {
   width: 100%;
@@ -54,24 +64,21 @@ by Mauricio Allende (https://mallendeo.com/)
 }
 .toggle-btn:focus::after,
 .toggle-btn:active::after {
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
-    0 4px 0 rgba(0, 0, 0, 0.08),
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08),
     inset 0px 0px 0px 1.5px #9c9c9c;
 }
 .toggle-btn::after {
   left: 0;
   position: relative;
   display: block;
-  content: '';
+  content: "";
   width: 50%;
   height: 100%;
   border-radius: 2em;
   background: #fbfbfb;
-  transition: all 0.3s
-      cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     padding 0.3s ease, margin 0.3s ease;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
-    0 4px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
 }
 .toggle-btn.toggle-btn-on::after {
   left: 50%;
@@ -91,5 +98,4 @@ by Mauricio Allende (https://mallendeo.com/)
 .toggle-input {
   display: none;
 }
-
 </style>
