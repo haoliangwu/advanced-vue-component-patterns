@@ -4,8 +4,10 @@
   </div>
 </template>
 <script>
+import { withToggleMixin } from "@/mixins/toggle";
+
 export default {
-  inject: { toggleComp: 'toggleComp' },
+  mixins: [withToggleMixin]
 };
 </script>
 <style>

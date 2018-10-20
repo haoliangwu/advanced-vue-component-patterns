@@ -4,7 +4,9 @@
       <toggle-button></toggle-button>
       <toggle-on>On</toggle-on>
       <toggle-off>Off</toggle-off>
-    </toggle>
+      <custom-button @toggle="onCustomButtonToggle"></custom-button>
+      <custom-status-indicator></custom-status-indicator>
+    </toggle> 
   </div>
 </template>
 
@@ -13,6 +15,8 @@ import Toggle from "./components/Toggle";
 import ToggleButton from "./components/ToggleButton";
 import ToggleOn from "./components/ToggleOn";
 import ToggleOff from "./components/ToggleOff";
+import CustomButton from "./components/CustomButton";
+import CustomStatusIndicator from "./components/CustomStatusIndicator";
 
 export default {
   name: "App",
@@ -20,11 +24,16 @@ export default {
     Toggle,
     ToggleButton,
     ToggleOn,
-    ToggleOff
+    ToggleOff,
+    CustomButton,
+    CustomStatusIndicator
   },
   methods: {
     onToggle(on) {
       console.log("toggle", on);
+    },
+    onCustomButtonToggle(on) {
+      console.log("custom button toggle", on);
     }
   }
 };

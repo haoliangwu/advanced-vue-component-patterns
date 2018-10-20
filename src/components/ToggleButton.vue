@@ -3,9 +3,10 @@
 </template>
 <script>
 import Switch from "./Switch";
+import { withToggleMixin } from "@/mixins/toggle";
 
 export default {
-  inject: { toggleComp: "toggleComp" },
+  mixins: [withToggleMixin],
   methods: {
     onClick() {
       this.toggleComp.toggle();
