@@ -4,13 +4,18 @@
   </button>
 </template>
 <script>
-import { withToggleMixin } from "@/mixins/toggle";
 export default {
-  mixins: [withToggleMixin],
+  props: {
+    on: {
+      type: Boolean,
+      default: false
+    },
+    toggle: Function
+  },
   methods: {
-    onClick(){
-      this.$emit('toggle', this.toggleComp.status.on)
-      this.toggleComp.toggle()
+    onClick() {
+      this.$emit("toggle", this.on);
+      this.toggle();
     }
   }
 };

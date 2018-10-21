@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <toggle @toggle="onToggle">
-      <toggle-button></toggle-button>
-      <toggle-on>On</toggle-on>
-      <toggle-off>Off</toggle-off>
-      <custom-button @toggle="onCustomButtonToggle"></custom-button>
-      <custom-status-indicator></custom-status-indicator>
+      <template slot-scope="{status, toggle}">
+        <toggle-button></toggle-button>
+        <toggle-on>On</toggle-on>
+        <toggle-off>Off</toggle-off>
+        <custom-button :on="status.on" :toggle="toggle"></custom-button>
+        <custom-status-indicator :on="status.on"></custom-status-indicator>
+      </template>
     </toggle> 
   </div>
 </template>
@@ -32,9 +34,6 @@ export default {
     onToggle(on) {
       console.log("toggle", on);
     },
-    onCustomButtonToggle(on) {
-      console.log("custom button toggle", on);
-    }
   }
 };
 </script>

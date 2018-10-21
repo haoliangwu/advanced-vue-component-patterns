@@ -1,6 +1,6 @@
 <template>
   <div class="toggle">
-	  <slot></slot>
+	  <slot :status="status" :toggle="toggle"></slot>
   </div>
 </template>
 <script>

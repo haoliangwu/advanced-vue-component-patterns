@@ -1,5 +1,5 @@
 {
-  "name": "part3",
+  "name": "part4",
   "version": "1.0.0",
   "description": "build a toggle component",
   "main": "src/main.js",
@@ -76,7 +76,7 @@
     "not ie <= 8"
   ],
   "keywords": [
-    "vue",
-    "component-pattern"
+    "component-pattern",
+    "vue"
   ]
 }
