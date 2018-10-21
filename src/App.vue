@@ -5,7 +5,7 @@
         <toggle-button></toggle-button>
         <toggle-on>On</toggle-on>
         <toggle-off>Off</toggle-off>
-        <custom-button :on="status.on" :toggle="toggle"></custom-button>
+        <custom-button ref="customButton" :on="status.on" :toggle="toggle"></custom-button>
         <custom-status-indicator :on="status.on"></custom-status-indicator>
       </template>
     </toggle> 
@@ -32,8 +32,9 @@ export default {
   },
   methods: {
     onToggle(on) {
+      if (on) this.$refs.customButton.focus();
       console.log("toggle", on);
-    },
+    }
   }
 };
 </script>
