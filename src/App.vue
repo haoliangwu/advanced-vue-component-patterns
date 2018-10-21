@@ -5,7 +5,9 @@
         <toggle-button></toggle-button>
         <toggle-on>On</toggle-on>
         <toggle-off>Off</toggle-off>
-        <custom-button ref="customButton" :on="status.on" :toggle="toggle"></custom-button>
+        <custom-button v-toggler ref="customButton" :on="status.on" :toggle="toggle"></custom-button>
+        <custom-button v-toggler="status.on" ref="customButton" :on="status.on" :toggle="toggle"></custom-button>
+        <custom-button v-toggler:on ref="customButton" :on="status.on" :toggle="toggle"></custom-button>
         <custom-status-indicator :on="status.on"></custom-status-indicator>
       </template>
     </toggle> 
@@ -19,6 +21,7 @@ import ToggleOn from "./components/ToggleOn";
 import ToggleOff from "./components/ToggleOff";
 import CustomButton from "./components/CustomButton";
 import CustomStatusIndicator from "./components/CustomStatusIndicator";
+import toggler from "./directives/toggler";
 
 export default {
   name: "App",
@@ -29,6 +32,9 @@ export default {
     ToggleOff,
     CustomButton,
     CustomStatusIndicator
+  },
+  directives: {
+    toggler
   },
   methods: {
     onToggle(on) {

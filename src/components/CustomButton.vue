@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="custom-button">
     <button class="toggle-on" @click="onClick">
 	  custom toggle button
     </button>
