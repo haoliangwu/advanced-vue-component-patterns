@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     onToggle(on) {
-      if (on) this.$refs.customButton.focus();
       console.log("toggle", on);
     },
     onReset(on) {
