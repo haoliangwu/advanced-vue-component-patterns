@@ -1,31 +1,24 @@
 <template>
   <div id="app">
-    <toggle :on="true" @toggle="onToggle" :on-reset="onReset">
+    <h3>controlled toggle</h3>
+    <toggle :on="on" @toggle="onToggle" :on-reset="onFirstReset">
       <template slot-scope="{status, toggle, reset}">
-        <toggle-button></toggle-button>
-        <toggle-on>On</toggle-on>
-        <toggle-off>Off</toggle-off>
-        <button @click="reset">reset to false</button>
+        <toggle-button :on="status.on" @toggle="toggle"></toggle-button>
+        <toggle-on :on="status.on">{{firstTimes}}</toggle-on>
+        <toggle-off :on="status.on">{{firstTimes}}</toggle-off>
+        <button @click="reset">reset</button>
       </template>
-    </toggle> 
+    </toggle>
     <br>
-    <toggle :on="false" @toggle="onToggle" :on-reset="resetToTrue">
+    <h3>uncontrolled toggle</h3>
+    <toggle @toggle="onToggle" :on-reset="onSecondReset">
       <template slot-scope="{status, toggle, reset}">
-        <toggle-button></toggle-button>
-        <toggle-on>On</toggle-on>
-        <toggle-off>Off</toggle-off>
-        <button @click="reset">reset to true</button>
+        <toggle-button :on="status.on" @toggle="toggle"></toggle-button>
+        <toggle-on :on="status.on">{{secondTimes}}</toggle-on>
+        <toggle-off :on="status.on">{{secondTimes}}</toggle-off>
+        <button @click="reset">reset</button>
       </template>
-    </toggle> 
-    <br>
-    <toggle :on="true" @toggle="onToggle" :on-reset="asyncResetToTrue">
-      <template slot-scope="{status, toggle, reset}">
-        <toggle-button></toggle-button>
-        <toggle-on>On</toggle-on>
-        <toggle-off>Off</toggle-off>
-        <button @click="reset">async reset to true</button>
-      </template>
-    </toggle> 
+    </toggle>
   </div>
 </template>
 
@@ -43,22 +36,34 @@ export default {
     ToggleOn,
     ToggleOff
   },
+  data() {
+    return {
+      times: 0,
+      on: false
+    };
+  },
+  computed: {
+    firstTimes(){
+      const rest = 4 - this.times
+      return rest >= 0 ? `${this.times} times` : 'need to reset'
+    },
+    secondTimes(){
+      return `${this.times} times` 
+    }
+  },
   methods: {
     onToggle(on) {
+      if(this.times < 4) this.on = on
+      this.times++
       console.log("toggle", on);
     },
-    onReset(on) {
+    onFirstReset(on) {
+      this.times = 0
       console.log("first reset toggle", on);
     },
-    resetToTrue(on) {
-      console.log("second second toggle", on);
-      return true;
-    },
-    asyncResetToTrue(on) {
-      console.log("third second toggle", on);
-      return new Promise(resolve => {
-        setTimeout(() => resolve(true), 1500);
-      });
+    onSecondReset(on) {
+      this.times = 0
+      console.log("second reset toggle", on);
     }
   }
 };

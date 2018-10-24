@@ -1,6 +1,6 @@
 <template>
   <div class="toggle">
-	  <slot :status="status" :toggle="toggle" :reset="reset"></slot>
+	  <slot :status="controlledStatus" :toggle="toggle" :reset="reset"></slot>
   </div>
 </template>
 <script>
@@ -8,7 +8,7 @@ export default {
   props: {
     on: {
       type: Boolean,
-      default: false
+      default: undefined
     },
     onReset: {
       type: Function,
@@ -19,34 +19,39 @@ export default {
   data() {
     return {
       status: {
-        on: false
+        on: this.on
       }
     };
   },
-  provide() {
-    return {
-      toggleComp: {
-        status: this.status,
-        toggle: this.toggle,
-        reset: this.reset
-      }
-    };
+  computed: {
+    isOnControlled() {
+      return this.on !== undefined;
+    },
+    controlledStatus() {
+      return this.isOnControlled ? { on: this.on } : this.status;
+    }
   },
   methods: {
     toggle() {
-      this.status.on = !this.status.on;
-      this.$emit("toggle", this.status.on);
+      if (this.isOnControlled) {
+        this.$emit("toggle", !this.on);
+      } else {
+        this.status.on = !this.status.on;
+        this.$emit("toggle", this.status.on);
+      }
     },
-    reset(){
-      Promise.resolve(this.onReset(this.status.on))
-        .then(on => {
-          this.status.on = on
-          this.$emit("reset", this.status.on)
-        })
+    reset() {
+      if (this.isOnControlled) {
+        Promise.resolve(this.onReset(!this.on)).then(on => {
+          this.$emit("reset", on);
+        });
+      } else {
+        Promise.resolve(this.onReset(this.status.on)).then(on => {
+          this.status.on = on || false;
+          this.$emit("reset", this.status.on);
+        });
+      }
     }
-  },
-  mounted() {
-    this.status.on = this.on;
   }
 };
 </script>

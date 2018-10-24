@@ -1,13 +1,16 @@
 <template>
-  <div class="toggle-on" v-if="!toggleComp.status.on">
+  <div class="toggle-on" v-if="!on">
 	  <slot></slot>
   </div>
 </template>
 <script>
-import { withToggleMixin } from "@/mixins/toggle";
-
 export default {
-  mixins: [withToggleMixin]
+  props: {
+    on: {
+      type: Boolean,
+      default: false
+    }
+  }
 };
 </script>
 <style>
