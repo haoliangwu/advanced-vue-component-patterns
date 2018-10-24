@@ -1,14 +1,29 @@
 <template>
   <div id="app">
-    <toggle @toggle="onToggle">
-      <template slot-scope="{status, toggle}">
+    <toggle :on="true" @toggle="onToggle" :on-reset="onReset">
+      <template slot-scope="{status, toggle, reset}">
         <toggle-button></toggle-button>
         <toggle-on>On</toggle-on>
         <toggle-off>Off</toggle-off>
-        <custom-button v-toggler ref="customButton" :on="status.on" :toggle="toggle"></custom-button>
-        <custom-button v-toggler="status.on" ref="customButton" :on="status.on" :toggle="toggle"></custom-button>
-        <custom-button v-toggler:on ref="customButton" :on="status.on" :toggle="toggle"></custom-button>
-        <custom-status-indicator :on="status.on"></custom-status-indicator>
+        <button @click="reset">reset to false</button>
+      </template>
+    </toggle> 
+    <br>
+    <toggle :on="false" @toggle="onToggle" :on-reset="resetToTrue">
+      <template slot-scope="{status, toggle, reset}">
+        <toggle-button></toggle-button>
+        <toggle-on>On</toggle-on>
+        <toggle-off>Off</toggle-off>
+        <button @click="reset">reset to true</button>
+      </template>
+    </toggle> 
+    <br>
+    <toggle :on="true" @toggle="onToggle" :on-reset="asyncResetToTrue">
+      <template slot-scope="{status, toggle, reset}">
+        <toggle-button></toggle-button>
+        <toggle-on>On</toggle-on>
+        <toggle-off>Off</toggle-off>
+        <button @click="reset">async reset to true</button>
       </template>
     </toggle> 
   </div>
@@ -19,9 +34,6 @@ import Toggle from "./components/Toggle";
 import ToggleButton from "./components/ToggleButton";
 import ToggleOn from "./components/ToggleOn";
 import ToggleOff from "./components/ToggleOff";
-import CustomButton from "./components/CustomButton";
-import CustomStatusIndicator from "./components/CustomStatusIndicator";
-import toggler from "./directives/toggler";
 
 export default {
   name: "App",
@@ -29,17 +41,25 @@ export default {
     Toggle,
     ToggleButton,
     ToggleOn,
-    ToggleOff,
-    CustomButton,
-    CustomStatusIndicator
-  },
-  directives: {
-    toggler
+    ToggleOff
   },
   methods: {
     onToggle(on) {
       if (on) this.$refs.customButton.focus();
       console.log("toggle", on);
+    },
+    onReset(on) {
+      console.log("first reset toggle", on);
+    },
+    resetToTrue(on) {
+      console.log("second second toggle", on);
+      return true;
+    },
+    asyncResetToTrue(on) {
+      console.log("third second toggle", on);
+      return new Promise(resolve => {
+        setTimeout(() => resolve(true), 1500);
+      });
     }
   }
 };
