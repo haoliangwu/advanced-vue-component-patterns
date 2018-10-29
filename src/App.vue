@@ -4,8 +4,7 @@
     <toggle :on="on" @toggle="onToggle" :on-reset="onFirstReset">
       <template slot-scope="{status, toggle, reset}">
         <toggle-button :on="status.on" @toggle="toggle"></toggle-button>
-        <toggle-on :on="status.on">{{firstTimes}}</toggle-on>
-        <toggle-off :on="status.on">{{firstTimes}}</toggle-off>
+        <toggle-status :on="status.on">{{firstTimes}}</toggle-status>
         <button @click="reset">reset</button>
       </template>
     </toggle>
@@ -14,8 +13,7 @@
     <toggle @toggle="onToggle" :on-reset="onSecondReset">
       <template slot-scope="{status, toggle, reset}">
         <toggle-button :on="status.on" @toggle="toggle"></toggle-button>
-        <toggle-on :on="status.on">{{secondTimes}}</toggle-on>
-        <toggle-off :on="status.on">{{secondTimes}}</toggle-off>
+        <toggle-status :on="status.on">{{secondTimes}}</toggle-status>
         <button @click="reset">reset</button>
       </template>
     </toggle>
@@ -25,16 +23,14 @@
 <script>
 import Toggle from "./components/Toggle";
 import ToggleButton from "./components/ToggleButton";
-import ToggleOn from "./components/ToggleOn";
-import ToggleOff from "./components/ToggleOff";
+import ToggleStatus from "./components/ToggleStatus";
 
 export default {
   name: "App",
   components: {
     Toggle,
     ToggleButton,
-    ToggleOn,
-    ToggleOff
+    ToggleStatus
   },
   data() {
     return {
@@ -43,26 +39,26 @@ export default {
     };
   },
   computed: {
-    firstTimes(){
-      const rest = 4 - this.times
-      return rest >= 0 ? `${this.times} times` : 'need to reset'
+    firstTimes() {
+      const rest = 4 - this.times;
+      return rest >= 0 ? `${this.times} times` : "need to reset";
     },
-    secondTimes(){
-      return `${this.times} times` 
+    secondTimes() {
+      return `${this.times} times`;
     }
   },
   methods: {
     onToggle(on) {
-      if(this.times < 4) this.on = on
-      this.times++
+      if (this.times < 4) this.on = on;
+      this.times++;
       console.log("toggle", on);
     },
     onFirstReset(on) {
-      this.times = 0
+      this.times = 0;
       console.log("first reset toggle", on);
     },
     onSecondReset(on) {
-      this.times = 0
+      this.times = 0;
       console.log("second reset toggle", on);
     }
   }

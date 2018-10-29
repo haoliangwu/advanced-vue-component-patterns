@@ -1,17 +1,10 @@
-<template>
-  <div class="toggle-on" v-if="!on">
+<template functional>
+  <div class="toggle-off">
 	  <slot></slot>
   </div>
 </template>
-<script>
-export default {
-  props: {
-    on: {
-      type: Boolean,
-      default: false
-    }
-  }
-};
-</script>
 <style>
+.toggle-off {
+  color: red;
+}
 </style>
